@@ -52,15 +52,21 @@ const messageSchema = new mongoose.Schema({
 const Message = mongoose.model("Message", messageSchema);
 
 // =========================
-// Nodemailer
+// Nodemailer Configuration
 // =========================
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 // Verify SMTP Connection
@@ -87,7 +93,7 @@ app.post("/api/contact", async (req, res) => {
       });
     }
 
-    // Save to MongoDB
+    // Save Message
     const newMessage = new Message({
       name,
       email,
@@ -100,46 +106,53 @@ app.post("/api/contact", async (req, res) => {
 
     console.log("✅ Message saved to MongoDB.");
 
-    // Email Template
+    // Mail Options
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-
+      from: `"Portfolio Contact Form" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
-
+      replyTo: email,
       subject: `📩 New Portfolio Message from ${name}`,
-
       html: `
-      <div style="font-family:Arial;padding:20px;background:#f4f4f4">
+        <div style="font-family:Arial,sans-serif;padding:20px;background:#f5f5f5;">
+          <h2 style="color:#12f7ff;">New Contact Form Submission</h2>
 
-        <h2 style="color:#12f7ff">
-          New Contact Form Submission
-        </h2>
+          <table cellpadding="8">
+            <tr>
+              <td><strong>Name:</strong></td>
+              <td>${name}</td>
+            </tr>
 
-        <hr>
+            <tr>
+              <td><strong>Email:</strong></td>
+              <td>${email}</td>
+            </tr>
 
-        <p><strong>Name:</strong> ${name}</p>
+            <tr>
+              <td><strong>Phone:</strong></td>
+              <td>${phone || "Not Provided"}</td>
+            </tr>
 
-        <p><strong>Email:</strong> ${email}</p>
+            <tr>
+              <td><strong>Address:</strong></td>
+              <td>${address || "Not Provided"}</td>
+            </tr>
+          </table>
 
-        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
+          <hr>
 
-        <p><strong>Address:</strong> ${address || "N/A"}</p>
+          <h3>Message</h3>
 
-        <p><strong>Message:</strong></p>
-
-        <div style="
-          background:white;
-          padding:15px;
-          border-left:4px solid #12f7ff;
-        ">
-          ${message}
+          <div style="
+            background:#ffffff;
+            padding:15px;
+            border-left:4px solid #12f7ff;
+          ">
+            ${message}
+          </div>
         </div>
-
-      </div>
       `,
     };
 
-    // Send Email
     try {
       const info = await transporter.sendMail(mailOptions);
 
@@ -174,14 +187,14 @@ app.post("/api/contact", async (req, res) => {
 });
 
 // =========================
-// Test Route
+// Root Route
 // =========================
 app.get("/", (req, res) => {
   res.send("Portfolio Backend Running 🚀");
 });
 
 // =========================
-// Server
+// Start Server
 // =========================
 const PORT = process.env.PORT || 5000;
 
