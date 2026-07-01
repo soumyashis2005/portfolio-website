@@ -56,13 +56,16 @@ const Message = mongoose.model("Message", messageSchema);
 // =========================
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
+  requireTLS: true,
 
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+
+  family: 4, // Force IPv4
 
   connectionTimeout: 10000,
   greetingTimeout: 10000,
