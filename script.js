@@ -170,7 +170,7 @@ if (contactForm) {
             submitBtn.style.pointerEvents = 'none';
 
             // Fire async query dispatch to backend express runtime engine
-            const response = await fetch('http://localhost:5000/api/contact', {
+            const response = await fetch('https://portfolio-backend-hyk3.onrender.com/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
