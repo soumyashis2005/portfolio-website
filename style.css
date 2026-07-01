@@ -1338,9 +1338,9 @@ footer a:hover i {
   }
 }
 
-/* =========================
-   Responsive Design
-========================= */
+/* =========================================================================
+   Responsive Design & Layout Patch Updates (Overriding Hidden Opacity Freezes)
+========================================================================= */
 
 @media (max-width: 991px) {
   header,
@@ -1397,9 +1397,9 @@ footer a:hover i {
   }
 }
 
-/* =========================
-   Tablet
-========================= */
+/* =========================================================================
+   Tablet Viewports (768px down)
+========================================================================= */
 
 @media (max-width: 768px) {
   #menu-icon {
@@ -1416,31 +1416,29 @@ footer a:hover i {
     top: -1000px;
     left: 0;
     right: 0;
-
     display: flex;
     flex-direction: column;
-
     background: var(--bg-color);
-
-    padding: 0 5%;
+    padding: 20px 5%;
     text-align: left;
-
     opacity: 0;
-
-    transition:
-      top 0.45s ease,
-      opacity 0.35s ease;
+    visibility: hidden;
+    transition: top 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, visibility 0.35s;
+    border-bottom: 1px solid var(--secon-bg-color);
   }
 
   .navlist.open {
     top: 100%;
     opacity: 1;
+    visibility: visible;
   }
 
   .navlist a {
     display: block;
-    font-size: 1rem;
-    padding: 15px 0;
+    font-size: 1.1rem;
+    padding: 12px 0;
+    opacity: 1 !important; /* Forces invisible opacity links to display instantly on toggle click */
+    animation: none !important; /* Prevents desktop entry delays from hiding the mobile menu */
   }
 
   .home {
@@ -1456,7 +1454,7 @@ footer a:hover i {
   .home-image {
     display: flex;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .img-box img {
@@ -1470,9 +1468,11 @@ footer a:hover i {
     top: 13%;
   }
 
+  /* Swaps fixed box widths to safe layout ratios */
   .info-box,
   .btn-box,
   .social-icons {
+    max-width: 100%;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
@@ -1480,7 +1480,12 @@ footer a:hover i {
 
   .about {
     flex-direction: column-reverse;
+    text-align: center;
   }
+
+  .info-about1 { left: -20px; }
+  .info-about2 { right: -20px; }
+  .info-about3 { right: -20px; }
 
   .skill-main {
     grid-template-columns: 1fr;
@@ -1499,10 +1504,6 @@ footer a:hover i {
     font-size: 0.8rem;
   }
 
-  .filter-buttons .button:active {
-    transform: scale(0.96);
-  }
-
   .projects-gallery {
     gap: 20px;
   }
@@ -1515,10 +1516,8 @@ footer a:hover i {
     opacity: 1;
     transform: translateY(0);
     padding: 25px;
-
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.85));
-
-    backdrop-filter: blur(3px);
+    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.9));
+    backdrop-filter: blur(4px);
   }
 
   .proj-content h3,
@@ -1528,23 +1527,12 @@ footer a:hover i {
     transform: translateY(0);
   }
 
-  .proj-content h3 {
-    font-size: 1.5rem;
-  }
-
-  .proj-content p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
+  .proj-content h3 { font-size: 1.5rem; }
+  .proj-content p { font-size: 0.9rem; line-height: 1.6; }
 
   .contact form .input-box {
     grid-template-columns: 1fr;
     gap: 0.8rem;
-  }
-
-  .contact form input,
-  .contact form textarea {
-    padding: 0.8rem;
   }
 
   footer {
@@ -1553,19 +1541,50 @@ footer a:hover i {
     row-gap: 20px;
     padding: 1.5rem 5%;
   }
-
-  footer p {
-    font-size: 0.8rem;
-  }
 }
 
-/* =========================
-   Mobile
-========================= */
+/* =========================================================================
+   Mobile Viewports (480px down)
+========================================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   html {
-    font-size: 80%;
+    font-size: 85%;
+  }
+
+  .change-text {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .btn-box {
+    width: 100%;
+    max-width: 320px;
+    gap: 10px;
+  }
+
+  /* Converts overlapping circular stats layout to standard stacking row blocks safely */
+  .about .img-about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .about .img-about img {
+    max-width: 260px;
+    margin-bottom: 10px;
+  }
+
+  .info-about1,
+  .info-about2,
+  .info-about3 {
+    position: static !important; 
+    width: 95px;
+    height: 95px;
+    display: inline-flex;
+    margin: 5px;
   }
 
   .projects-gallery {
@@ -1573,77 +1592,10 @@ footer a:hover i {
   }
 
   .proj-box {
-    height: 320px;
-  }
-
-  .proj-content h3 {
-    font-size: 1.3rem;
-  }
-
-  .proj-content p {
-    font-size: 0.8rem;
-  }
-
-  .project-links a {
-    width: 45px;
-    height: 45px;
-  }
-
-  .project-links a i {
-    font-size: 1.1rem;
-  }
-
-  .project-tech span {
-    font-size: 0.7rem;
-    padding: 6px 12px;
-  }
-
-  .img-about img {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .info-about1,
-  .info-about2,
-  .info-about3 {
-    width: 80px;
-    height: 80px;
-    padding: 6px;
-  }
-
-  .info-about1 span,
-  .info-about2 span,
-  .info-about3 span {
-    font-size: 1rem;
-  }
-
-  .info-about1 p,
-  .info-about2 p,
-  .info-about3 p {
-    font-size: 0.55rem;
-  }
-
-  .img-about p {
-    font-size: 1rem;
+    height: 340px;
   }
 
   .formBtn .btn {
     width: 100%;
-  }
-
-  footer p {
-    font-size: 0.75rem;
-  }
-}
-
-/* =========================
-   Accessibility
-========================= */
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
   }
 }

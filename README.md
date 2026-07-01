@@ -1,72 +1,70 @@
-# 💼 Soumyashis Ghosh - Personal Portfolio
+# 💼 Personal Portfolio Website
 
-A modern, fully responsive **Full Stack Developer Portfolio** built to showcase my skills, projects, education, and experience. The portfolio features a clean UI, smooth animations, interactive project filtering, and a fully functional contact system powered by **Node.js**, **Express.js**, **MongoDB**, and **Nodemailer**.
+A modern, fully responsive **Full Stack Developer Portfolio** showcasing my skills, projects, education, certifications, and experience. Built with **HTML, CSS, JavaScript, Node.js, Express.js, MongoDB, and SendGrid**, the portfolio features a clean UI, smooth animations, interactive project filtering, and a secure contact system.
 
 ---
 
 ## 🚀 Live Demo
 
 🌐 **Portfolio Website**
-
-https://your-portfolio-link.vercel.app
+https://portfolio-website-smoky-tau-89.vercel.app
 
 ---
 
 ## 📸 Screenshots
 
-### 🏠 Home Section
-![Home Page](/screenshots/home.png)
+* 🏠 Home Section
+* 🛠️ Skills Section
+* 📂 Projects Section
+* 📬 Contact Section
 
-### 🛠️ Skills Section
-![Skills Section](/screenshots/skills.png)
-
-### 📂 Projects Section
-![Projects Section](/screenshots/projects.png)
+> *(Add screenshots inside the `screenshots` folder and update this section with image links.)*
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-- 🎨 Modern and responsive user interface
-- 📱 Mobile-first responsive design
-- ⚡ Smooth scroll animations
-- 🎯 Active navigation highlighting
-- ✨ Dynamic text animation
-- 📂 Filterable project gallery
-- 📊 Interactive skills section
-- 📧 Functional contact form
-- 💾 MongoDB database integration
-- 📬 Automatic email notifications using Nodemailer
-- ♿ Accessibility improvements
-- 🚀 SEO-friendly structure
-- 🌙 Clean and organized codebase
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- MixItUp
-- Boxicons
-- Font Awesome
-
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- Nodemailer
-- CORS
-- Dotenv
+* 🎨 Modern and clean user interface
+* 📱 Fully responsive mobile-first design
+* ⚡ Smooth scroll reveal animations
+* 🎯 Active navigation highlighting
+* ✨ Dynamic typing text animation
+* 📂 Filterable project gallery
+* 📊 Interactive skills section
+* 📧 Functional contact form
+* 💾 MongoDB database integration
+* 📬 Secure email notifications using SendGrid API
+* 🔒 Environment variable protection with Dotenv
+* ♿ Accessibility improvements
+* 🚀 SEO-friendly structure
+* 🌙 Clean and organized codebase
 
 ---
 
-## 🏗️ Project Architecture
+# 🛠️ Tech Stack
+
+## Frontend
+
+* HTML5
+* CSS3
+* JavaScript (ES6)
+* MixItUp
+* Boxicons
+* Font Awesome
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* SendGrid API
+* CORS
+* Dotenv
+
+---
+
+# 🏗️ Architecture Overview
 
 ```text
 Frontend (HTML • CSS • JavaScript)
@@ -76,7 +74,7 @@ Frontend (HTML • CSS • JavaScript)
                 │
         ┌───────┴────────┐
         ▼                ▼
-   MongoDB Database   Nodemailer
+   MongoDB Database   SendGrid API
         │                │
         └───────┬────────┘
                 ▼
@@ -85,13 +83,12 @@ Frontend (HTML • CSS • JavaScript)
 
 ---
 
-## 📂 Folder Structure
+# 📂 Folder Structure
 
 ```text
 portfolio/
 │
 ├── backend/
-│   ├── node_modules/
 │   ├── .env
 │   ├── package.json
 │   ├── package-lock.json
@@ -101,7 +98,6 @@ portfolio/
 │   └── Soumyashis_Ghosh_Resume.pdf
 │
 ├── img/
-│
 ├── screenshots/
 │
 ├── .gitignore
@@ -114,40 +110,40 @@ portfolio/
 
 ---
 
-## ⚙️ Getting Started
+# ⚙️ Getting Started
 
-### Clone the repository
-
-```bash
-git clone https://github.com/soumyashis2005/your-portfolio.git
-```
-
-### Navigate into the project
+## 1️⃣ Clone the Repository
 
 ```bash
-cd personal-portfolio
+git clone https://github.com/soumyashis2005/portfolio-website.git
 ```
 
-### Install backend dependencies
+## 2️⃣ Navigate to the Project
+
+```bash
+cd portfolio-website
+```
+
+## 3️⃣ Install Backend Dependencies
 
 ```bash
 cd backend
 npm install
 ```
 
-### Create a `.env` file
+## 4️⃣ Create a `.env` File
 
 ```env
 PORT=5000
 
 MONGO_URI=your_mongodb_connection_string
 
-EMAIL_USER=your_email@gmail.com
+SENDGRID_API_KEY=your_sendgrid_api_key
 
-EMAIL_PASS=your_google_app_password
+FROM_EMAIL=your_email@example.com
 ```
 
-### Start the backend server
+## 5️⃣ Start the Backend Server
 
 ```bash
 npm start
@@ -159,13 +155,13 @@ or
 node server.js
 ```
 
-### Run the frontend
+## 6️⃣ Run the Frontend
 
-Open `index.html` using **Live Server** or any local development server.
+Open **index.html** using **Live Server** or any local development server.
 
 ---
 
-## 📬 Contact Form Workflow
+# 📬 Contact Form Workflow
 
 ```text
 Visitor
@@ -178,40 +174,55 @@ Express.js Backend
    │
    ├────────► MongoDB
    │
-   └────────► Nodemailer
-                     │
-                     ▼
-          Email Notification
+   └────────► SendGrid API
+                      │
+                      ▼
+               Email Notification
 ```
 
 ---
 
-## 📌 About
+# 🚀 Future Improvements
 
-This portfolio showcases my journey as a **Computer Science & Engineering student** and **MERN Stack Developer**. It highlights my technical skills, featured projects, education, and provides an easy way for recruiters and collaborators to get in touch.
+* 🌙 Dark / Light Mode
+* 📝 Blog Section
+* 🔍 Project Search
+* 📊 Visitor Analytics Dashboard
+* 📥 Admin Panel for Contact Messages
+* 🌍 Multi-language Support
 
 ---
 
-## 📬 Contact
+# 📌 About
+
+This portfolio reflects my journey as a **Computer Science & Engineering student** and an aspiring **MERN Stack Developer**. It showcases my technical skills, featured projects, education, certifications, and provides recruiters and collaborators with an easy way to connect with me.
+
+---
+
+# 📬 Contact
 
 **Soumyashis Ghosh**
 
-📧 Email: **soumyashisghosh2005@gmail.com**
+📧 Email: [soumyashisghosh2005@gmail.com](mailto:soumyashisghosh2005@gmail.com)
 
 💼 LinkedIn: https://www.linkedin.com/in/soumyashis-ghosh-4290a9265/
 
 💻 GitHub: https://github.com/soumyashis2005
 
-🌐 Portfolio: https://your-portfolio-link.vercel.app
+🌐 Portfolio: https://portfolio-website-smoky-tau-89.vercel.app
 
 ---
 
-## ⭐ Show Your Support
+# ⭐ Show Your Support
 
-If you like this project, consider giving it a ⭐ on GitHub.
+If you found this project helpful or liked the design, consider giving it a **⭐ Star** on GitHub. It helps support my work and motivates me to build more awesome projects.
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is licensed under the **MIT License**.
+
+---
+
+## ❤️ Built with Passion by Soumyashis Ghosh
