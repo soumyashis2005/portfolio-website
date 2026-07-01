@@ -47,19 +47,24 @@ const messageSchema = new mongoose.Schema({
 const Message = mongoose.model("Message", messageSchema);
 
 // =========================
-// Nodemailer Configuration (FIXED FOR CLOUD DEPLOYMENTS)
+// Nodemailer Configuration (Max Reliability for Cloud Deployments)
 // =========================
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,               // 🔄 Changed from 587 to 465 to bypass firewall drops
-  secure: true,            // 🔄 Set to true because port 465 explicitly requires SSL
+  port: 465,               // SSL Port
+  secure: true,            // Must be true for 465
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS, // ⚠️ Must be your 16-character Google App Password
+    pass: process.env.EMAIL_PASS,
   },
-  connectionTimeout: 15000,
-  greetingTimeout: 15000,
-  socketTimeout: 15000,
+  tls: {
+    // 🔄 Tell Nodemailer to bypass internal proxy/local security blocks on cloud setups
+    rejectUnauthorized: false,
+    minVersion: "TLSv1.2"
+  },
+  connectionTimeout: 20000, // Give it a bit more breathing room (20 seconds)
+  greetingTimeout: 20000,
+  socketTimeout: 20000,
 });
 
 // Verify SMTP Connection
