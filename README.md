@@ -7,18 +7,22 @@ A modern, fully responsive **Full Stack Developer Portfolio** showcasing my skil
 ## 🚀 Live Demo
 
 🌐 **Portfolio Website**
-https://portfolio-website-smoky-tau-89.vercel.app
+https://portfolio-website-smoky-tau-89.vercel.app/
 
 ---
 
 ## 📸 Screenshots
 
-* 🏠 Home Section
-* 🛠️ Skills Section
-* 📂 Projects Section
-* 📬 Contact Section
+## 📸 Screenshots
 
-> *(Add screenshots inside the `screenshots` folder and update this section with image links.)*
+### 🏠 Home Section
+![Home Page](/screenshots/home.png)
+
+### 🛠️ Skills Section
+![Skills Section](/screenshots/skills.png)
+
+### 📂 Projects Section
+![Projects Section](/screenshots/projects.png)
 
 ---
 
@@ -179,17 +183,6 @@ Express.js Backend
                       ▼
                Email Notification
 ```
-
----
-
-# 🚀 Future Improvements
-
-* 🌙 Dark / Light Mode
-* 📝 Blog Section
-* 🔍 Project Search
-* 📊 Visitor Analytics Dashboard
-* 📥 Admin Panel for Contact Messages
-* 🌍 Multi-language Support
 
 ---
 

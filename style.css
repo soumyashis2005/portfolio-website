@@ -1,13 +1,9 @@
+/* =========================================================================
+   1. Core Configuration & Design Tokens
+========================================================================= */
+/* NOTE: Remove the @import URL below and place it as a <link> in your HTML 
+   <head> for optimal, non-blocking page load speeds. */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  list-style: none;
-  scroll-behavior: smooth;
-  text-decoration: none;
-}
 
 :root {
   --text-color: #f5f5f5;
@@ -16,8 +12,8 @@
   --secon-bg-color: #292e29;
   --big-font: 2.5rem;
   --normal-font: 2rem;
-  --neon-box-shadow: 0 0 0.5rem #12f7ff;
   --h2-font: 3rem;
+  --neon-box-shadow: 0 0 0.5rem #12f7ff;
   --font-neon-text-shadow:
     0 0 10px rgba(18, 247, 255, 0.3), 0 0 20px rgba(18, 247, 255, 0.3),
     0 0 30px rgba(18, 247, 255, 0.3), 0 0 40px rgba(18, 247, 255, 0.3),
@@ -25,6 +21,37 @@
     0 0 100px rgba(18, 247, 255, 0.3), 0 0 150px rgba(18, 247, 255, 0.3);
 }
 
+/* Global Structural Resets */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Custom Webkit Scrollbar System */
 ::-webkit-scrollbar {
   height: 0;
   width: 0.5rem;
@@ -39,12 +66,9 @@
   border-radius: 5rem;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
+/* =========================================================================
+   2. Header Navigation System
+========================================================================= */
 header {
   position: fixed;
   top: 0;
@@ -56,6 +80,10 @@ header {
   justify-content: space-between;
   width: 100%;
   padding: 20px 10%;
+  transition:
+    padding 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 
 header.sticky {
@@ -68,6 +96,11 @@ header.sticky {
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 1px;
+  color: var(--text-color);
+}
+
+.logo span {
+  color: var(--hover-color);
 }
 
 .logo:visited,
@@ -75,12 +108,9 @@ header.sticky {
   color: var(--text-color);
 }
 
-span {
-  color: var(--hover-color);
-}
-
 .navlist {
   display: flex;
+  align-items: center;
 }
 
 .navlist li {
@@ -94,29 +124,7 @@ span {
   padding: 10px 20px;
   animation: slideAnimation 1s ease forwards;
   opacity: 0;
-}
-
-/* Staggered Navigation Entry via CSS instead of inline HTML styling variables */
-.navlist li:nth-child(1) a {
-  animation-delay: 0.3s;
-}
-.navlist li:nth-child(2) a {
-  animation-delay: 0.6s;
-}
-.navlist li:nth-child(3) a {
-  animation-delay: 0.9s;
-}
-.navlist li:nth-child(4) a {
-  animation-delay: 1.2s;
-}
-.navlist li:nth-child(5) a {
-  animation-delay: 1.5s;
-}
-.navlist li:nth-child(6) a {
-  animation-delay: 1.8s;
-}
-.navlist li:nth-child(7) a {
-  animation-delay: 2.1s;
+  animation-delay: calc(var(--nav-item-index, 1) * 0.2s + 0.1s);
 }
 
 .navlist a:hover {
@@ -125,11 +133,7 @@ span {
     0 0 10px rgba(18, 247, 255, 0.6),
     0 0 20px rgba(18, 247, 255, 0.6),
     0 0 30px rgba(18, 247, 255, 0.6),
-    0 0 40px rgba(18, 247, 255, 0.6),
-    0 0 70px rgba(18, 247, 255, 0.6),
-    0 0 80px rgba(18, 247, 255, 0.6),
-    0 0 100px rgba(18, 247, 255, 0.6),
-    0 0 150px rgba(18, 247, 255, 0.6);
+    0 0 40px rgba(18, 247, 255, 0.6);
 }
 
 .navlist a.active {
@@ -147,19 +151,111 @@ span {
   display: none;
 }
 
+/* =========================================================================
+   3. Main Global Layout Structures
+========================================================================= */
 section {
   padding: 100px 10%;
-  scroll-margin-top: 90px;
+  scroll-margin-top: 120px;
 }
 
+.main-text {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--hover-color);
+}
+
+.main-text h2 {
+  font-weight: 700;
+  font-size: var(--normal-font);
+}
+
+.main-text span {
+  color: #fdfdfd;
+  font-size: 0.8rem;
+  font-weight: 200;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Global Shared Button Engine */
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 340px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-box .btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 45px;
+  background: var(--hover-color);
+  color: var(--bg-color);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  transition:
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+  box-shadow: var(--neon-box-shadow);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid var(--hover-color);
+}
+
+.btn:hover {
+  color: var(--hover-color);
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--bg-color);
+  width: 0;
+  height: 100%;
+  z-index: -1;
+  transition: width 0.4s ease;
+}
+
+.btn:hover::before {
+  width: 100%;
+}
+
+.btn:nth-child(2) {
+  background: var(--bg-color);
+  color: var(--hover-color);
+}
+
+.btn:nth-child(2):hover {
+  color: var(--bg-color);
+}
+
+.btn:nth-child(2)::before {
+  background: var(--hover-color);
+}
+
+/* =========================================================================
+   4. Hero Landing Section Module
+========================================================================= */
 .home {
   min-height: 100vh;
-  height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  grid-gap: 4em;
+  gap: 4rem;
 }
 
 .home-content {
@@ -169,24 +265,37 @@ section {
 .home-content h1 {
   font-size: var(--big-font);
   font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
+/* FIXED TEXT ENGINE INTERLOCKING SYSTEM */
 .change-text {
   font-size: 1.5rem;
   font-weight: 600;
-  height: 2.5rem; /* Prevents paragraph overlap due to absolutely positioned inner text items */
+  height: 2.5rem;
   position: relative;
+  display: block;
+  width: 100%;
 }
 
 .change-text h3 {
-  display: inline-flex;
+  display: inline-block;
   margin: 0;
   vertical-align: top;
 }
 
+/* Position the second text stack safely right after the prefix */
+.change-text h3:last-child {
+  position: relative;
+  margin-left: 8px; 
+}
+
 .change-text h3 .word {
   position: absolute;
-  display: flex;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  white-space: nowrap;
   opacity: 0;
 }
 
@@ -196,11 +305,11 @@ section {
 
 .change-text h3 .word .letter.out {
   transform: rotateX(90deg);
-  transition: 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
+  transition: transform 0.32s cubic-bezier(0.6, 0, 0.7, 0.2);
 }
 
 .change-text h3 .word .letter.in {
-  transition: 0.38s ease;
+  transition: transform 0.38s ease;
 }
 
 .change-text h3 .word .letter.behind {
@@ -210,12 +319,12 @@ section {
 .home-content p {
   color: #bdbdbd;
   line-height: 1.6;
+  margin-top: 1rem;
 }
 
 .email-info a {
   color: #bdbdbd;
-  text-decoration: none;
-  transition: 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .email-info a:hover {
@@ -248,68 +357,8 @@ section {
   color: #bdbdbd;
 }
 
-.btn-box {
-  display: flex;
-  justify-content: space-between;
-  width: 320px;
-  height: 45px;
-}
-
-.btn-box .btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 100%;
-  background: var(--hover-color);
-  color: var(--bg-color);
-  font-size: 1rem;
-  letter-spacing: 1px;
-  font-weight: 600;
-  transition: 0.6s;
-  box-shadow: var(--neon-box-shadow);
-  border-radius: 5px;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  border: 2px solid var(--hover-color);
-}
-
-.btn:hover {
-  color: var(--hover-color);
-}
-
-.btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: var(--bg-color);
-  width: 0;
-  height: 100%;
-  z-index: -1;
-  transition: 0.4s;
-}
-
-.btn:hover::before {
-  width: 100%;
-}
-
-.btn:nth-child(2) {
-  background: var(--bg-color);
-  color: var(--hover-color);
-}
-
-.btn:nth-child(2):hover {
-  color: var(--bg-color);
-}
-
-.btn:nth-child(2)::before {
-  background: var(--hover-color);
-}
-
 .social-icons {
-  margin-top: 8rem;
+  margin-top: 3rem;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -325,7 +374,7 @@ section {
   background: var(--bg-color);
   color: var(--hover-color);
   border: 2px solid var(--hover-color);
-  transition: 0.6s;
+  transition: color 0.6s ease;
   box-shadow: 0 0 0.3rem #12f7ff;
   border-radius: 5px;
   position: relative;
@@ -349,7 +398,7 @@ section {
   width: 0;
   height: 100%;
   background: var(--hover-color);
-  transition: 0.6s;
+  transition: width 0.6s ease;
   z-index: -1;
 }
 
@@ -377,25 +426,33 @@ section {
   height: 100%;
   z-index: -1;
   top: 15%;
+  will-change: border-radius;
+  transform: translate3d(0, 0, 0);
 }
 
-/* About Section */
+/* =========================================================================
+   5. About Section Module
+========================================================================= */
 .about {
   display: flex;
   justify-content: center;
   align-items: center;
-  grid-gap: 2em;
+  gap: 4rem;
   background: var(--secon-bg-color);
 }
 
 .about .img-about {
   text-align: center;
   position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 400px;
 }
 
 .about .img-about img {
-  max-width: 400px;
+  width: 100%;
   height: auto;
+  display: block;
 }
 
 .about-content span {
@@ -428,26 +485,24 @@ section {
 .info-about2,
 .info-about3 {
   position: absolute;
-
   width: 110px;
   height: 110px;
-
   background: var(--bg-color);
   border: 1px solid var(--hover-color);
   outline: 2px solid var(--bg-color);
   box-shadow: var(--neon-box-shadow);
-
   border-radius: 69% 31% 66% 34% / 21% 30% 70% 79%;
   animation: morph 6s linear infinite;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   text-align: center;
   padding: 10px;
-  z-index: 100;
+  z-index: 10;
+  will-change: border-radius;
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
 }
 
 .info-about1 span,
@@ -469,32 +524,25 @@ section {
 }
 
 .info-about1 {
-  left: 5%;
+  left: -10%;
   top: 40%;
 }
-
 .info-about2 {
-  right: 5%;
+  right: -10%;
   top: 10%;
 }
-
 .info-about3 {
-  right: 5%;
+  right: -10%;
   bottom: 5%;
 }
 
-.img-about span {
-  color: var(--hover-color);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-/* Education Section */
+/* =========================================================================
+   6. Education Module
+========================================================================= */
 .education {
   background: var(--bg-color);
 }
 
-/* Isolated container structural layout */
 .education-container {
   display: flex;
   justify-content: center;
@@ -513,39 +561,36 @@ section {
   align-items: center;
   justify-content: center;
   min-height: 320px;
-  flex: 1 1 18rem;
+  flex: 1 1 300px;
   border: 2px solid var(--hover-color);
   box-shadow: var(--neon-box-shadow);
   transition:
     transform 0.4s ease,
-    box-shadow 0.4s ease;
+    box-shadow 0.4s ease,
+    background-color 0.4s ease;
 }
 
-/* Smooth Interactive Hover State for Education Cards */
 .education-container .service-box:hover {
   transform: translateY(-10px);
-  border-color: var(--hover-color);
-  background: var(--bg-color); /* Subtle dark invert shift on hover */
+  background: var(--bg-color);
   box-shadow:
     0 15px 35px rgba(0, 0, 0, 0.4),
-    0 0 25px rgba(18, 247, 255, 0.3); /* Vibrant neon frame aura glow */
+    0 0 25px rgba(18, 247, 255, 0.3);
 }
 
-/* Optional: Slight scaling pop on the institutional logos inside the card */
 .education-container .service-box:hover img {
   transform: scale(1.08);
   filter: drop-shadow(0 0 12px var(--hover-color));
-  transition:
-    transform 0.4s ease,
-    filter 0.4s ease;
 }
 
 .education-container .service-box img {
   width: 100px;
   height: auto;
-  display: block;
   margin: 0 auto 15px auto;
   filter: drop-shadow(0 0 8px rgba(18, 247, 255, 0.4));
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
 }
 
 .education-container .service-box h3 {
@@ -560,25 +605,11 @@ section {
   line-height: 1.6;
 }
 
-/* Services Section */
-.main-text {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--hover-color);
-}
-
-.main-text h2 {
-  font-weight: 700;
-  font-size: var(--normal-font);
-}
-
-.main-text span {
-  color: #fdfdfd;
-  font-size: 0.8rem;
-  font-weight: 200;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+/* =========================================================================
+   7. Services Component Structure
+========================================================================= */
+.services {
+  background: var(--secon-bg-color);
 }
 
 .section-services {
@@ -590,7 +621,7 @@ section {
 }
 
 .section-services .service-box {
-  flex: 1 1 18rem;
+  flex: 1 1 300px;
   padding: 2.5rem 1.5rem;
   text-align: center;
   background: var(--bg-color);
@@ -605,7 +636,6 @@ section {
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease;
-  cursor: pointer;
 }
 
 .section-services .service-box:hover {
@@ -650,11 +680,9 @@ section {
   line-height: 1.6;
 }
 
-.services {
-  background: var(--secon-bg-color);
-}
-
-/* Skills Section */
+/* =========================================================================
+   8. Technical Skills Metrics Display
+========================================================================= */
 .skills {
   background: var(--bg-color);
 }
@@ -667,13 +695,24 @@ section {
   grid-column-gap: 50px;
 }
 
+.skill-main h3 {
+  margin-bottom: 2rem;
+  font-size: var(--normal-font);
+  text-align: center;
+}
+
 .skill-bar {
   margin-bottom: 2.4rem;
-  transition: 0.35s;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.skill-bar:hover {
+  transform: scaleY(1.05);
 }
 
 .skill-bar:hover .bar {
-  transform: scaleY(1.15);
   box-shadow: 0 0 15px var(--hover-color);
 }
 
@@ -684,12 +723,6 @@ section {
 .skill-left .skill-bar:hover .info p:first-child,
 .skill-left .skill-bar:hover .info p:last-child {
   color: var(--hover-color);
-}
-
-.skill-main h3 {
-  margin-bottom: 2rem;
-  font-size: var(--normal-font);
-  text-align: center;
 }
 
 .skill-left .skill-bar .info {
@@ -707,7 +740,7 @@ section {
   margin-top: 10px;
   position: relative;
   overflow: hidden;
-  transition: all 0.35s ease;
+  transition: box-shadow 0.35s ease;
 }
 
 .skill-left .skill-bar .info p:first-child {
@@ -720,7 +753,6 @@ section {
 }
 
 .skill-bar .bar span {
-  width: 50%;
   height: 100%;
   position: absolute;
   left: 0;
@@ -736,25 +768,25 @@ section {
 .skill-bar .bar .java {
   width: 85%;
   animation:
-    java 2s,
+    java 2s forwards,
     pulseGlow 2s infinite;
 }
 .skill-bar .bar .reactjs {
   width: 80%;
   animation:
-    reactjs 2.5s,
+    reactjs 2.5s forwards,
     pulseGlow 2s infinite;
 }
 .skill-bar .bar .nodejs {
   width: 75%;
   animation:
-    nodejs 3s,
+    nodejs 3s forwards,
     pulseGlow 2s infinite;
 }
 .skill-bar .bar .mongodb {
   width: 70%;
   animation:
-    mongodb 3.5s,
+    mongodb 3.5s forwards,
     pulseGlow 2s infinite;
 }
 
@@ -768,9 +800,7 @@ section {
   position: relative;
   margin: 10px;
   flex: 1 1 15rem;
-  transition:
-    transform 0.4s ease,
-    filter 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .box:hover {
@@ -803,7 +833,9 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.5s;
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
 }
 
 .box:hover .circle {
@@ -825,8 +857,9 @@ section {
   animation-delay: calc(var(--i) * 0.05s);
 }
 
-/* Projects Section */
-
+/* =========================================================================
+   9. Interactive Projects Gallery Portfolio Section
+========================================================================= */
 .projects {
   background: var(--secon-bg-color);
   padding: 100px 8%;
@@ -840,7 +873,9 @@ section {
   font-size: 0.95rem;
 }
 
-/* Filter Buttons */
+.projects .container {
+  width: 100%;
+}
 
 .filter-buttons {
   display: flex;
@@ -865,6 +900,7 @@ section {
 }
 
 .filter-buttons .button:hover,
+.filter-buttons .button.active,
 .filter-buttons .button.mixitup-control-active {
   background: var(--hover-color);
   color: var(--bg-color);
@@ -873,15 +909,13 @@ section {
   transform: translateY(-2px);
 }
 
-/* Gallery */
-
 .projects-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 35px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
-/* Card */
 
 .proj-box {
   position: relative;
@@ -890,15 +924,11 @@ section {
   height: 450px;
   border-radius: 20px;
   cursor: pointer;
-
   border: 2px solid rgba(18, 247, 255, 0.25);
-
   background: #111;
-
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.45),
     0 0 20px rgba(18, 247, 255, 0.08);
-
   transition:
     transform 0.45s ease,
     box-shadow 0.45s ease,
@@ -907,15 +937,11 @@ section {
 
 .proj-box:hover {
   transform: translateY(-10px) scale(1.02);
-
   border-color: var(--hover-color);
-
   box-shadow:
     0 22px 45px rgba(0, 0, 0, 0.45),
     0 0 30px rgba(18, 247, 255, 0.35);
 }
-
-/* Glow Border */
 
 .proj-box::before {
   content: "";
@@ -924,15 +950,13 @@ section {
   border-radius: 20px;
   pointer-events: none;
   box-shadow: 0 0 0 rgba(18, 247, 255, 0.6);
-  transition: 0.4s;
+  transition: box-shadow 0.4s ease;
   z-index: 2;
 }
 
 .proj-box:hover::before {
   box-shadow: 0 0 35px rgba(18, 247, 255, 0.55);
 }
-
-/* Image */
 
 .proj-image {
   width: 100%;
@@ -944,9 +968,7 @@ section {
   height: 100%;
   object-fit: cover;
   object-position: center;
-
   filter: brightness(0.82);
-
   transition:
     transform 0.6s ease,
     filter 0.6s ease;
@@ -957,34 +979,27 @@ section {
   filter: brightness(0.55);
 }
 
-/* Overlay */
-
 .proj-content {
   position: absolute;
   inset: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-
   text-align: center;
-
   padding: 30px;
-
   background: linear-gradient(
     to top,
     rgba(18, 247, 255, 0.92),
     rgba(0, 0, 0, 0.78),
     rgba(0, 0, 0, 0.18)
   );
-
   backdrop-filter: blur(5px);
-
   opacity: 0;
   transform: translateY(100%);
-
-  transition: 0.55s ease;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
 }
 
 .proj-box:hover .proj-content {
@@ -992,124 +1007,85 @@ section {
   transform: translateY(0);
 }
 
-/* Heading */
-
 .proj-content h3 {
   color: #fff;
-
   font-size: 1.8rem;
-
   margin-bottom: 15px;
-
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-
   transform: translateY(25px);
-
-  transition: 0.45s;
+  transition: transform 0.45s ease;
 }
-
-/* Description */
 
 .proj-content p {
   color: #fff;
-
   font-size: 0.92rem;
-
   line-height: 1.7;
-
   margin-bottom: 20px;
-
   transform: translateY(25px);
-
-  transition: 0.5s;
+  transition: transform 0.5s ease;
 }
-
-/* Tech Stack */
 
 .project-tech {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-
   margin-bottom: 22px;
-
   transform: translateY(25px);
-
-  transition: 0.55s;
+  transition: transform 0.55s ease;
 }
 
 .project-tech span {
   padding: 8px 16px;
-
   border-radius: 30px;
-
   background: rgba(255, 255, 255, 0.12);
-
   backdrop-filter: blur(10px);
-
   border: 1px solid rgba(255, 255, 255, 0.25);
-
   color: #fff;
-
   font-size: 0.75rem;
-
   font-weight: 600;
-
   letter-spacing: 0.4px;
-
-  transition: 0.35s ease;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
 }
 
 .project-tech span:hover {
   background: var(--hover-color);
-
   color: #000;
-
   transform: translateY(-3px);
 }
-
-/* Links */
 
 .project-links {
   display: flex;
   gap: 16px;
-
   transform: translateY(25px);
-
-  transition: 0.7s;
+  transition: transform 0.7s ease;
 }
 
 .project-links a {
   width: 54px;
   height: 54px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   border-radius: 50%;
-
   background: #fff;
-
   color: var(--hover-color);
-
   font-size: 1.3rem;
-
   cursor: pointer;
-
-  transition: 0.35s ease;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
 }
 
 .project-links a:hover {
   background: var(--hover-color);
-
   color: #000;
-
   transform: translateY(-6px) scale(1.1);
 }
-
-/* Reveal Animation */
 
 .proj-box:hover h3,
 .proj-box:hover p,
@@ -1118,7 +1094,9 @@ section {
   transform: translateY(0);
 }
 
-/* Contact Section */
+/* =========================================================================
+   10. Contact Section Layout
+========================================================================= */
 .contact {
   background: var(--bg-color);
   width: 100%;
@@ -1127,7 +1105,8 @@ section {
 
 .contact form {
   text-align: center;
-  max-width: 50rem;
+  width: 100%;
+  max-width: 700px;
   margin: 1rem auto 3rem;
 }
 
@@ -1148,7 +1127,9 @@ section {
   padding: 0.9rem;
   font-size: 0.95rem;
   outline: none;
-  transition: all 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .contact form textarea {
@@ -1165,30 +1146,41 @@ section {
 .formBtn {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
-.formBtn .btn {
+.formBtn button.btn {
   cursor: pointer;
   font-size: 1rem;
   padding: 12px 40px;
+  width: auto;
+  height: auto;
   background: var(--hover-color);
   color: #000000;
   font-weight: 600;
   border-radius: 30px;
   border: 2px solid var(--hover-color);
   box-shadow: 0 0 15px rgba(18, 247, 255, 0.2);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.formBtn .btn:hover {
+.formBtn button.btn:hover {
   transform: translateY(-3px);
   background: transparent;
   color: var(--hover-color);
   box-shadow: 0 0 25px rgba(18, 247, 255, 0.5);
 }
 
-/* Footer Section */
+/* =========================================================================
+   11. Footer Module
+========================================================================= */
 footer {
   padding: 1.5rem 8%;
   display: flex;
@@ -1213,13 +1205,15 @@ footer a {
   background: var(--hover-color);
   border: 2px solid var(--hover-color);
   border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 footer a i {
   font-size: 1.2rem;
   color: #000000;
-  transition: color 0.3s ease;
 }
 
 footer a:hover {
@@ -1230,33 +1224,44 @@ footer a:hover {
 
 footer a:hover i {
   color: var(--hover-color);
+  transition: color 0.3s ease;
 }
 
-/* Scroll Parallex Setup */
+/* =========================================================================
+   12. Parallax Setup Engine Classes
+========================================================================= */
 .scroll-scale {
   opacity: 0;
   transform: scale(0.9);
-  transition: all 2s;
+  transition:
+    opacity 2s ease,
+    transform 2s ease;
 }
 
 .scroll-bottom {
   opacity: 0;
   transform: translateY(300px);
-  transition: 3s;
+  transition:
+    opacity 3s ease,
+    transform 3s ease;
 }
 
 .scroll-top {
   opacity: 0;
   transform: translateY(-300px);
-  transition: 3s;
+  transition:
+    opacity 3s ease,
+    transform 3s ease;
 }
 
 .show-items {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) scale(1) translateY(0);
 }
 
-/* Keyframes Block */
+/* =========================================================================
+   13. Unified Keyframe Animations
+========================================================================= */
 @keyframes morph {
   0%,
   100% {
@@ -1274,36 +1279,20 @@ footer a:hover i {
 }
 
 @keyframes java {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 85%;
-  }
+  from { width: 0%; }
+  to { width: 85%; }
 }
 @keyframes reactjs {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 80%;
-  }
+  from { width: 0%; }
+  to { width: 80%; }
 }
 @keyframes nodejs {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 75%;
-  }
+  from { width: 0%; }
+  to { width: 75%; }
 }
 @keyframes mongodb {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 70%;
-  }
+  from { width: 0%; }
+  to { width: 70%; }
 }
 
 @keyframes glow {
@@ -1339,74 +1328,72 @@ footer a:hover i {
 }
 
 /* =========================================================================
-   Responsive Design & Layout Patch Updates (Overriding Hidden Opacity Freezes)
+   14. Responsive Layout Breakpoints
 ========================================================================= */
+@media (max-width: 1200px) {
+  section {
+    padding: 80px 6%;
+  }
+  header,
+  header.sticky {
+    padding: 18px 6%;
+  }
+  .home {
+    gap: 2.5rem;
+  }
+  .about {
+    gap: 2.5rem;
+  }
+}
 
 @media (max-width: 991px) {
   header,
   header.sticky {
     padding: 15px 5%;
   }
-
   footer {
     padding: 15px 5%;
   }
-
   section {
     padding: 60px 5%;
   }
-
   :root {
     --big-font: 2.2rem;
     --normal-font: 1.8rem;
     --h2-font: 2.5rem;
     --neon-box-shadow: 0 0 0.8rem #12f7ff;
   }
-
   .navlist a {
     padding: 8px 15px;
   }
-
   .home {
     gap: 2rem;
   }
-
   .about {
-    gap: 3rem;
+    gap: 2rem;
   }
-
   .education-container {
     gap: 1.5rem;
   }
-
   .home-content {
     margin-top: 5rem;
   }
-
   .social-icons {
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
-
   .projects-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
   }
-
   .proj-box {
     height: 390px;
   }
 }
 
-/* =========================================================================
-   Tablet Viewports (768px down)
-========================================================================= */
-
 @media (max-width: 768px) {
   #menu-icon {
     display: block;
-    transition: 0.4s ease;
+    transition: transform 0.4s ease;
   }
-
   #menu-icon.bx-x {
     transform: rotate(-180deg);
   }
@@ -1416,6 +1403,7 @@ footer a:hover i {
     top: -1000px;
     left: 0;
     right: 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: var(--bg-color);
@@ -1423,7 +1411,10 @@ footer a:hover i {
     text-align: left;
     opacity: 0;
     visibility: hidden;
-    transition: top 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, visibility 0.35s;
+    transition:
+      top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.35s ease,
+      visibility 0.35s;
     border-bottom: 1px solid var(--secon-bg-color);
   }
 
@@ -1432,13 +1423,12 @@ footer a:hover i {
     opacity: 1;
     visibility: visible;
   }
-
   .navlist a {
     display: block;
     font-size: 1.1rem;
     padding: 12px 0;
-    opacity: 1 !important; /* Forces invisible opacity links to display instantly on toggle click */
-    animation: none !important; /* Prevents desktop entry delays from hiding the mobile menu */
+    opacity: 1 !important;
+    animation: none !important;
   }
 
   .home {
@@ -1446,29 +1436,25 @@ footer a:hover i {
     text-align: center;
     gap: 3rem;
   }
-
   .home-content {
     max-width: 100%;
   }
-
   .home-image {
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
+    order: -1;
   }
-
   .img-box img {
-    width: 80%;
+    width: 100%;
     max-width: 350px;
   }
-
   .liquid-shape {
     width: 80%;
     left: 10%;
     top: 13%;
   }
 
-  /* Swaps fixed box widths to safe layout ratios */
   .info-box,
   .btn-box,
   .social-icons {
@@ -1478,36 +1464,57 @@ footer a:hover i {
     margin-right: auto;
   }
 
+  /* RE-CENTERING FOR SMART GLIDE TEXT SYSTEM ON TABLETS */
+  .change-text {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .change-text h3:last-child {
+    position: relative;
+    margin-left: 0;
+    flex: initial;
+    min-width: auto;
+    width: max-content;
+  }
+
+  .change-text h3 .word {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .about {
     flex-direction: column-reverse;
     text-align: center;
+    gap: 3rem;
   }
-
-  .info-about1 { left: -20px; }
-  .info-about2 { right: -20px; }
-  .info-about3 { right: -20px; }
-
-  .skill-main {
+  .about .img-about {
+    max-width: 320px;
+  }
+  .info-about1,
+  .info-about2,
+  .info-about3 {
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+  }
+  .skill-main,
+  .professional {
     grid-template-columns: 1fr;
   }
-
   .education-container .service-box {
     min-height: 280px;
   }
-
   .filter-buttons {
     margin: 2.5rem 0;
+    gap: 10px;
   }
-
   .filter-buttons .button {
     padding: 10px 18px;
     font-size: 0.8rem;
   }
-
-  .projects-gallery {
-    gap: 20px;
-  }
-
   .proj-box {
     height: 360px;
   }
@@ -1518,6 +1525,7 @@ footer a:hover i {
     padding: 25px;
     background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.9));
     backdrop-filter: blur(4px);
+    pointer-events: auto; 
   }
 
   .proj-content h3,
@@ -1526,15 +1534,17 @@ footer a:hover i {
   .project-links {
     transform: translateY(0);
   }
-
-  .proj-content h3 { font-size: 1.5rem; }
-  .proj-content p { font-size: 0.9rem; line-height: 1.6; }
-
+  .proj-content h3 {
+    font-size: 1.5rem;
+  }
+  .proj-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
   .contact form .input-box {
     grid-template-columns: 1fr;
     gap: 0.8rem;
   }
-
   footer {
     flex-direction: column;
     text-align: center;
@@ -1543,59 +1553,112 @@ footer a:hover i {
   }
 }
 
-/* =========================================================================
-   Mobile Viewports (480px down)
-========================================================================= */
-
 @media (max-width: 480px) {
   html {
     font-size: 85%;
   }
-
+  
+  /* COLUMN RE-ALIGNMENT PREVENTING TEXT CRASHES ON ULTRA-SMALL SCREENS */
   .change-text {
-    height: auto;
+    font-size: 1.2rem;
+    height: 4.5rem; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     margin-bottom: 1rem;
   }
+  
+  .change-text h3:last-child {
+    height: 2rem;
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
 
+  .change-text h3 .word {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
   .btn-box {
     width: 100%;
     max-width: 320px;
     gap: 10px;
-  }
-
-  /* Converts overlapping circular stats layout to standard stacking row blocks safely */
-  .about .img-about {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+  }
+  .btn-box .btn {
     width: 100%;
   }
-
-  .about .img-about img {
-    max-width: 260px;
-    margin-bottom: 10px;
+  
+  /* BADGE LAYOUT HORIZONTAL ROW ENGINE GROUPING SYSTEM */
+  .about .img-about {
+    display: block;
+    text-align: center;
+    width: 100%;
   }
-
+  .about .img-about img {
+    max-width: 250px;
+    margin: 0 auto 20px auto;
+  }
   .info-about1,
   .info-about2,
   .info-about3 {
-    position: static !important; 
-    width: 95px;
-    height: 95px;
-    display: inline-flex;
-    margin: 5px;
+    position: static !important;
+    width: 92px;
+    height: 92px;
+    display: inline-flex !important;
+    vertical-align: middle;
+    margin: 6px;
   }
-
   .projects-gallery {
     grid-template-columns: 1fr;
   }
-
   .proj-box {
-    height: 340px;
+    height: auto;
+    min-height: 400px;
   }
-
   .formBtn .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  html {
+    font-size: 75%;
+  }
+  .logo {
+    font-size: 20px;
+  }
+  .about .img-about img {
+    max-width: 220px;
+  }
+  .info-about1,
+  .info-about2,
+  .info-about3 {
+    width: 80px;
+    height: 80px;
+  }
+  .proj-content h3 {
+    font-size: 1.2rem;
+  }
+  .proj-content p {
+    font-size: 0.8rem;
+  }
+  .project-tech span {
+    font-size: 0.65rem;
+    padding: 6px 10px;
+  }
+}
+
+/* =========================================================================
+   15. Accessibility Layer Setup
+========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
